@@ -2,7 +2,8 @@
 <header><div><strong>Motion Relay / After Effects</strong><small>参考动效迁移 · 开发版</small></div><button id="refresh">读取工程</button></header>
 <p id="status" role="status">等待连接 AE…</p><main>
 <section aria-labelledby="reference-heading">
-<h2 id="reference-heading">1. 选择参考视频或 GIF</h2>
+<h2 id="reference-heading">1. 选参考动效</h2>
+<p class="muted">选择一段视频或 GIF，再设置要模仿的时间范围。</p>
 <input id="video-file" type="file" accept="video/*,.webm,.mp4,.mov,image/gif,.gif" aria-label="选择参考视频或 GIF">
 <video id="video" controls preload="auto" muted hidden></video>
 <img id="gif-preview" alt="参考 GIF 预览" hidden>
@@ -12,12 +13,12 @@
 <div id="frames" class="frames"></div>
 </div>
 </section>
-<section id="target-section"><h2>2. 指定已有图层</h2><p id="comp">等待读取当前合成</p><p id="target-count" class="muted">在 AE 选中图层，或在下方勾选。</p><input id="search" placeholder="搜索图层名称" aria-label="搜索图层"><div id="layers"></div>
-<label for="object">参考中哪个对象对应这个图层？</label><input id="object" placeholder="例如：画面中央的蓝色香水瓶">
+<section id="target-section"><h2>2. 选要接收动效的 AE 图层</h2><p id="comp">等待读取当前合成</p><p id="target-count" class="muted">先在 AE 时间轴选中一个图层，或在这里勾选。</p><input id="search" placeholder="搜索图层名称" aria-label="搜索图层"><div id="layers"></div>
+<label for="object">参考视频里要模仿哪个对象？</label><input id="object" placeholder="例如：画面中央的蓝色香水瓶">
 </section>
-<section><h2>3. 分析并查看修改</h2><label for="prompt">希望保留或调整什么？</label><textarea id="prompt" rows="2" placeholder="例如：模仿弧线入场，1 秒完成，保留终点。"></textarea>
-<p class="muted">分析会把抽帧与目标图层属性发送给设置中的模型。当前支持二维位置轨迹与回弹，速度和轨迹来自视觉估计。</p>
-<div class="row"><button id="generate" class="primary">分析参考动效</button><button id="cancel" disabled>取消分析</button></div>
+<section><h2>3. 生成可编辑动画</h2><label for="prompt">补充要求（可留空）</label><textarea id="prompt" rows="2" placeholder="例如：一秒完成，弧线轻一点，保留现在的最终位置。"></textarea>
+<p class="muted">点下面按钮后，ChatGPT 会分析带时间戳的参考画面并提出修改方案。确认后会把可编辑的位置关键帧写到所选图层；不会新建替代视频。需先在下方连接 ChatGPT。</p>
+<div class="row"><button id="generate" class="primary">分析参考并生成关键帧方案</button><button id="cancel" disabled>取消分析</button></div>
 </section>
 <section id="proposal" hidden><h2>4. 确认后应用到图层</h2><p id="scope"></p><p id="description"></p><ul id="changes"></ul>
 <details><summary>查看具体数值与表达式</summary><pre id="plan"></pre></details>
