@@ -2,6 +2,13 @@ const test=require('node:test');
 const assert=require('node:assert/strict');
 const crypto=require('node:crypto');
 const auth=require('../core/chatgpt-auth.js');
+const keychainProtocol=require('../core/keychain-protocol.js');
+
+test('macOS Keychain helper request is newline terminated',()=>{
+  const input=keychainProtocol.encodeRequest('set','sample-value');
+  assert.equal(input.endsWith('\n'),true);
+  assert.deepEqual(JSON.parse(input),{operation:'set',value:'sample-value'});
+});
 
 test('ChatGPT OAuth uses PKCE S256 and does not require an API secret',()=>{
   const pair=auth.createChallenge(crypto);
