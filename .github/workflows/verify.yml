@@ -1,0 +1,17 @@
+name: Verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm test
+      - run: npm run check
+      - run: npm run build:keychain

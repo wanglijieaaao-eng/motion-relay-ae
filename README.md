@@ -84,6 +84,8 @@ npm run check
 - `runtime/keychain.m`：Apple Security.framework 辅助程序，把 OAuth 凭据加密存进 macOS 钥匙串。
 - `core/session.js`：本地会话。`modules/ports.js` 为后续媒体、捕获、生成、规则及多供应商的接口边界。
 
-本项目的 OAuth 流程独立按公开协议实现，没有复用 OpenAI 的非商业许可 DevKit。Keychain 辅助程序依赖 macOS Foundation / Security 框架。仓库采用 MIT 许可证；公开发布前仍需将 `LICENSE` 中的版权归属改为实际权利人，并进行代码、构建物和部门批准范围审阅。当前 GitHub 连接没有创建新仓库的能力，因此源码暂留在本机，尚未公开发布。
+本项目的 OAuth 流程独立按公开协议实现，没有复用 OpenAI 的非商业许可 DevKit。Keychain 辅助程序依赖 macOS Foundation / Security 框架。仓库以 MIT 许可证公开，版权声明为 `Motion Relay contributors`。若将本项目用于公司工作，请确认相应权利人授权。
+
+当前开发环境的钥匙串辅助程序返回 macOS 状态码 `-67674`，因此 OAuth 登录、套餐额度授权和真实 Responses 请求尚未验证。下一步需在 AE 24 / CEP 11 中安装并完成账号登录测试；不能将源码测试通过理解为在线模型链路已通过。
 
 官方依据与实现决策见 `docs/sources.md`；验收步骤见 `docs/acceptance.md`。

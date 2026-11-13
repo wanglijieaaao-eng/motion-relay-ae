@@ -1,0 +1,35 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src https:; media-src blob:; img-src 'self' data: blob:;"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motion Relay</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><strong>Motion Relay / After Effects</strong><small>参考动效迁移 · 开发版</small></div><button id="refresh">读取工程</button></header>
+<p id="status" role="status">等待连接 AE…</p><main>
+<section aria-labelledby="reference-heading">
+<h2 id="reference-heading">1. 选择参考视频或 GIF</h2>
+<input id="video-file" type="file" accept="video/*,.webm,.mp4,.mov,image/gif,.gif" aria-label="选择参考视频或 GIF">
+<video id="video" controls preload="auto" muted hidden></video>
+<img id="gif-preview" alt="参考 GIF 预览" hidden>
+<div id="video-range" hidden>
+<div class="row"><label>开始（秒）<input id="clip-start" type="number" min="0" step="any" value="0"></label><label>结束（秒）<input id="clip-end" type="number" min="0" step="any"></label></div>
+<label>采样密度 <select id="density"><option value="3">普通</option><option value="6">快速运动</option><option value="12">密集采样</option></select></label>
+<div id="frames" class="frames"></div>
+</div>
+</section>
+<section id="target-section"><h2>2. 指定已有图层</h2><p id="comp">等待读取当前合成</p><p id="target-count" class="muted">在 AE 选中图层，或在下方勾选。</p><input id="search" placeholder="搜索图层名称" aria-label="搜索图层"><div id="layers"></div>
+<label for="object">参考中哪个对象对应这个图层？</label><input id="object" placeholder="例如：画面中央的蓝色香水瓶">
+</section>
+<section><h2>3. 分析并查看修改</h2><label for="prompt">希望保留或调整什么？</label><textarea id="prompt" rows="2" placeholder="例如：模仿弧线入场，1 秒完成，保留终点。"></textarea>
+<p class="muted">分析会把抽帧与目标图层属性发送给设置中的模型。当前支持二维位置轨迹与回弹，速度和轨迹来自视觉估计。</p>
+<div class="row"><button id="generate" class="primary">分析参考动效</button><button id="cancel" disabled>取消分析</button></div>
+</section>
+<section id="proposal" hidden><h2>4. 确认后应用到图层</h2><p id="scope"></p><p id="description"></p><ul id="changes"></ul>
+<details><summary>查看具体数值与表达式</summary><pre id="plan"></pre></details>
+<label id="overwrite-label" hidden><input type="checkbox" id="overwrite">确认替换所列属性的已有动画或表达式</label>
+<button id="apply" class="primary">应用到已有图层</button></section>
+<div class="row"><button id="undo">撤销上次应用</button></div>
+<details id="settings"><summary>ChatGPT 账号与模型</summary><p id="chatgpt-account" class="muted">尚未连接 ChatGPT</p><div class="row"><button id="connect-chatgpt" class="primary">Continue with ChatGPT</button><button id="disconnect-chatgpt" hidden>断开连接</button></div><label for="model">可用模型</label><select id="model" disabled><option value="">先连接 ChatGPT</option></select><button id="save" disabled>保存模型选择</button><p id="plan-usage" class="muted" hidden>Using ChatGPT plan</p><button id="manage-usage" hidden>Manage usage</button><p class="muted">用系统浏览器登录 ChatGPT，并在授权页确认允许 Motion Relay 使用套餐额度。令牌保存在本机 macOS 钥匙串，不写入工程、聊天或日志。每个人使用自己的 ChatGPT 账户及额度。</p><p class="muted">工程图层属性、表达式、对话文字和参考片段抽帧会发送到 OpenAI Responses 服务；参考视频本身不上传，面板只发送采样图片。请遵守部门素材与数据规则。</p></details>
+<div id="chatgpt-welcome" class="modal" role="dialog" aria-modal="true" aria-labelledby="welcome-title" hidden><div class="modal-card"><h2 id="welcome-title">已连接 ChatGPT</h2><p>Motion Relay 的模型请求将使用你刚授权的 ChatGPT 套餐额度。你可以在 ChatGPT 用量设置中查看和管理此应用。</p><button id="welcome-dismiss" class="primary">知道了</button></div></div>
+<details><summary>更多操作与历史</summary>
+<div class="row"><button id="text-only">按文字生成（不使用视频）</button><button id="sample">测试位置关键帧</button></div>
+<p class="muted">测试只生成固定的入场方案。确认应用后可在 AE 时间轴检查。</p>
+<pre id="state"></pre><div id="chat"></div>
+</details>
+<p class="muted">逐字错峰、遮罩、描边生长和合成截图仍待实现。应用后可在 AE 时间轴播放检查。</p>
+</main><script src="../core/contract.js"></script><script src="../core/model.js"></script><script src="../core/session.js"></script><script src="video.js"></script><script src="gif.js"></script><script src="app.js"></script></body></html>

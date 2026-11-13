@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="7.0" ExtensionBundleId="cn.department.aeassistant" ExtensionBundleVersion="0.2.0" ExtensionBundleName="Motion Relay">
+<ExtensionList><Extension Id="cn.department.aeassistant.panel" Version="0.2.0"/></ExtensionList>
+<ExecutionEnvironment><HostList><Host Name="AEFT" Version="[24.0,24.9]"/></HostList><LocaleList><Locale Code="All"/></LocaleList><RequiredRuntimeList><RequiredRuntime Name="CSXS" Version="11.0"/></RequiredRuntimeList></ExecutionEnvironment>
+<DispatchInfoList><Extension Id="cn.department.aeassistant.panel"><DispatchInfo><Resources><MainPath>./panel/index.html</MainPath><ScriptPath>./host/bootstrap.jsx</ScriptPath><CEFCommandLine><Parameter>--enable-nodejs</Parameter></CEFCommandLine></Resources><Lifecycle><AutoVisible>true</AutoVisible></Lifecycle><UI><Type>Panel</Type><Menu>Motion Relay（开发版）</Menu><Geometry><Size><Width>420</Width><Height>720</Height></Size><MinSize><Width>330</Width><Height>400</Height></MinSize></Geometry></UI></DispatchInfo></Extension></DispatchInfoList>
+</ExtensionManifest>
