@@ -9,6 +9,7 @@ const operation={kind:'motionPath',layerId:7,property:'position',start:1,duratio
 const plan=(changes)=>({summary:'弧线回弹',operations:[{...operation,...changes}]});
 
 test('长片段及快速运动可采样超过六帧，时间覆盖完整区间',()=>{
+  assert.equal(sampleTimes(0,2,5,6).length,13);
   assert.equal(sampleTimes(2,4,5,3).length,7);
   assert.equal(sampleTimes(2,4,5,12).length,25);
   assert.equal(sampleTimes(2,4,5,12).at(-1),4);

@@ -54,6 +54,7 @@ test('参考轨迹写成目标图层的可编辑关键帧，末点保留原位�
   assert.deepEqual(Array.from(h.position.keyValue(1)),[720,660]);
   assert.deepEqual(Array.from(h.position.keyValue(2)),[992,450]);
   assert.deepEqual(Array.from(h.position.keyValue(3)),[960,540],'最后一个关键帧保持原构图位置');
+  assert.equal(h.position.keys.every(k=>k.spatialAuto&&k.spatialContinuous),true,'轨迹关键帧应使用 AE 空间自动贝塞尔以减少折线感');
   const duplicate=JSON.parse(h.dispatch(JSON.stringify({action:'execute',id:'task-reference-1',plan,revision:inspected.state.revision,targets:[13],overwrite:false})));
   assert.equal(duplicate.ok,true);
   assert.equal(h.position.numKeys,3,'重复回执不能叠加关键帧');

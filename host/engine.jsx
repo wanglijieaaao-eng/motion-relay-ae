@@ -34,7 +34,10 @@ if(end.length===3)value.push(end[2]);
 p.setValueAtTime(o.start+o.duration*point.t,value);
 }
 if(p.numKeys!==o.points.length)throw Error('PATH_TIMES: 轨迹点过于密集');
-for(i=1;i<=p.numKeys;i++)p.setInterpolationTypeAtKey(i,KeyframeInterpolationType.LINEAR,KeyframeInterpolationType.LINEAR);
+for(i=1;i<=p.numKeys;i++){
+p.setInterpolationTypeAtKey(i,KeyframeInterpolationType.LINEAR,KeyframeInterpolationType.LINEAR);
+if(p.isSpatial){p.setSpatialContinuousAtKey(i,true);p.setSpatialAutoBezierAtKey(i,true);}
+}
 }
 function execute(r){if(typeof r.id!=='string'||!/^task-|^integration-|^expression-|^bad-expression-|^stale-/.test(r.id)||r.id.length>100)throw Error('BAD_ID');if(receipts[r.id])return receipts[r.id];
 var s=inspect(),c=comp();if(s.revision!==r.revision)throw Error('STALE_STATE: 工程已变化，请重新生成方案');AEContract.validate(r.plan,s,r.targets);
